@@ -1,0 +1,30 @@
+<persistence
+        xmlns="http://java.sun.com/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        version="2.0"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="testPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>com.iblagojevic.model.Transaction</class>
+        <class>com.iblagojevic.model.User</class>
+        <class>com.iblagojevic.model.Country</class>
+        <class>com.iblagojevic.model.Currency</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.jdbc.batch_size" value="10"/>
+            <property name="hibernate.connection.shutdown" value="true"/>
+            <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
+            <property name="hibernate.ejb.discard_pc_on_close" value="false"/>
+            <property name="hibernate.query.jpaql_strict_compliance" value="true"/>
+            <property name="hibernate.transaction.flush_before_completion" value="false"/>
+            <property name="hibernate.use_identifier_rollback" value="false"/>
+            <property name="hibernate.c3p0.min_size" value="10"/>
+            <property name="hibernate.c3p0.max_size" value="100"/>
+            <property name="hibernate.c3p0.max_statements" value="120"/>
+            <property name="hibernate.c3p0.timeout" value="100"/>
+            <property name="hibernate.c3p0.idle_test_period" value="300"/>
+        </properties>
+    </persistence-unit>
+</persistence>
