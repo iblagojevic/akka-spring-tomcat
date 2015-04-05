@@ -16,11 +16,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.*;
 
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-;
 
 @RunWith(PowerMockRunner.class)
 public class TransactionControllerTest {
@@ -36,13 +35,11 @@ public class TransactionControllerTest {
     @InjectMocks
     private TransactionController transactionController = new TransactionController();
 
-
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
         this.mockMvc = MockMvcBuilders.standaloneSetup(transactionController).build();
+        MockitoAnnotations.initMocks(this);
     }
-
 
     @Test
     public void reportByCriteria_shouldReturnJSONArray() throws Exception {
@@ -55,13 +52,15 @@ public class TransactionControllerTest {
         entry2.put("cnt", "20");
         result.add(entry1);
         result.add(entry2);
-        Map<String, Date> fromToDates = new HashMap<>();
-        fromToDates.put("from", new Date(0));
-        fromToDates.put("to", new Date());
+        Map<String, Date> fromToDatesMap = new HashMap<>();
+        fromToDatesMap.put("from", new Date(0));
+        fromToDatesMap.put("to", new Date());
+        Date from = fromToDatesMap.get("from");
+        Date to = fromToDatesMap.get("to");
 
-        when(mockTransactionService.fromToDates("", "")).thenReturn(fromToDates);
-        when(mockEntityService.getReportByCountry(org.mockito.Mockito.isA(Date.class), org.mockito.Mockito.isA(Date.class))).thenReturn(result);
-
+        doReturn(fromToDatesMap).when(mockTransactionService).fromToDates(null, null);
+        doReturn(result).when(mockEntityService).getReportByCountry(from, to);
+        
         mockMvc.perform(get("/transaction/byCountry"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -70,11 +69,13 @@ public class TransactionControllerTest {
                 .andExpect(jsonPath("$[0].cnt", is("10")))
                 .andExpect(jsonPath("$[1].name", is("name 2")))
                 .andExpect(jsonPath("$[1].cnt", is("20")));
+
+        verify(mockTransactionService, times(1)).fromToDates(null, null);
+        verify(mockEntityService, times(1)).getReportByCountry(from, to);
     }
 
     @Test
     public void submit_badPayload() throws Exception {
-
         mockMvc.perform(post("/transaction/submit")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":\"23\"}".getBytes()))
@@ -84,7 +85,6 @@ public class TransactionControllerTest {
 
     @Test
     public void submit_correctPayload() throws Exception {
-
         TransactionPayload tp = new TransactionPayload();
         doNothing().when(mockTransactionService).startProcessingActor(tp);
         mockMvc.perform(post("/transaction/submit")

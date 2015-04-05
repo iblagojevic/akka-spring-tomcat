@@ -24,7 +24,7 @@ public class TransactionController {
     /**
      * Endpoint consumes json and passes DTO payload to Akka actor
      */
-    @RequestMapping(value="/submit", method=RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value="/submit", method=RequestMethod.POST, headers = {"Content-type=application/json"}, consumes = {"application/json"})
     @ResponseBody
     public  Map<String, String> processTransaction(@RequestBody TransactionPayload transactionPayload) {
         Map<String, String> response = new HashMap<>();
@@ -83,7 +83,4 @@ public class TransactionController {
         List<Map<String, String>> report = entityService.getErrorReport(fromToDates.get("from"), fromToDates.get("to"));
         return report;
     }
-
-
-
 }

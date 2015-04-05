@@ -95,8 +95,8 @@ function getErrorReport() {
             for (var x in data) {
                 html += '<div class="row">' +
                 '<div class="col-left">User ID: ' + data[x].userId + '</div>' +
-                '<div style="float: left; padding-right: 10px;">' + data[x].message + '</div>' +
-                '<div style="float: left; width: 20%;">' + data[x].date + '</div>' +
+                '<div class="col-left">' + data[x].date + '</div>' +
+                '<div style="float: left; padding-left: 10px;">' + data[x].message + '</div>' +
                 '<div style="clear: both;" />' +
                 '</div>';
             }
