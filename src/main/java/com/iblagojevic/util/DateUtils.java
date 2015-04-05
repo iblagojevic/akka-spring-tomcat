@@ -40,12 +40,12 @@ public class DateUtils {
     }
 
     public static Date getDateFromString(String input) {
-        Date result = null;
+        Date result;
         try {
             result = new SimpleDateFormat(DATE_FORMAT).parse(input);
         }
         catch (ParseException pe) {
-            result = new Date();
+            result = null;
         }
         return result;
     }
