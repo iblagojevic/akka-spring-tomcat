@@ -6,8 +6,10 @@ Introduction
 
 Application is implemented in Java and runs in Tomcat.
 Implementation is based on usage of **[Akka](http://akka.io)** toolkit, to enable highly concurrent processing of transaction messages.
-Spring is used for dependency injection and orchestration of components. Endpoints are built using `spring-mvc` and its REST support.
+Spring is used for dependency injection and orchestration of components. Endpoints are built using `spring-mvc` and its REST support. 
 Frontend is simple single page application which uses "traditional" ajax polling to produce reports related to transactions.
+
+Nota bene: please make sure to set proper headers when making POST request with JSON payload:`Content-type: application/json`
 
 Architecture overview
 --------------
