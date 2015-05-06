@@ -11,6 +11,10 @@ Frontend is simple single page application which uses "traditional" ajax polling
 
 Nota bene: please make sure to set proper headers when making POST request with JSON payload:`Content-type: application/json`
 
+Example message:
+```
+{"userId": "999", "currencyFrom": "EUR", "currencyTo": "GBP", "amountSell": 1000, "amountBuy": 747.10, "rate": 0.7471, "timePlaced" : "24-APR-15 10:27:44", "originatingCountry" : "FR"}
+```
 Architecture overview
 --------------
 
