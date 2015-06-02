@@ -1,4 +1,4 @@
-akka-spring-tomcat-test
+akka-spring-tomcat
 ========================
 
 Introduction
