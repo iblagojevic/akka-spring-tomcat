@@ -1,10 +1,3 @@
-/*
-SQLyog Ultimate v12.03 (64 bit)
-MySQL - 5.5.41-0ubuntu0.14.04.1 : Database - akka_spring_tomcat
-*********************************************************************
-*/
-
-
 /*!40101 SET NAMES utf8 */;
 
 /*!40101 SET SQL_MODE=''*/;
